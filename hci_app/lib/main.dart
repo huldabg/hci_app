@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'screens/Ron-wisley.dart';
+import 'screens/host-a-party.dart';
+import 'screens/first-Screen.dart';
+import 'screens/host-a-party-finish.dart';
+//needs to import the new screens here
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +35,10 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      //home: const MyHomePage(title: 'Flutter Demo Home Page')
+      home: //const HostPartyScreen(),
+      HostPartyStatusScreen(),
+      //change const CluePartyScreen() to the screen you want to check
     );
   }
 }
@@ -54,7 +62,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 1;
+  int _counter = 5;
 
   void _incrementCounter() {
     setState(() {
@@ -120,3 +128,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+/*how to run the app: 
+use cd to navigate to the correct folder
+write "flutter run"
+chose option 2 = chrome */
