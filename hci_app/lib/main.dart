@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       ),
       //home: const MyHomePage(title: 'Flutter Demo Home Page')
       home: //const HostPartyScreen(),
-      HostPartyStatusScreen(),
+      const RonWisleyScreen(),
       //change const CluePartyScreen() to the screen you want to check
     );
   }

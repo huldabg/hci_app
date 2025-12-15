@@ -51,7 +51,7 @@ class RonWisleyScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 28,
                     backgroundImage:
-                        AssetImage("assets/Avatars/ron_wisley.png"),
+                        AssetImage("assets/Avatars/dumbledore.png"),
                   ),
 
                   const SizedBox(width: 12),
@@ -62,7 +62,7 @@ class RonWisleyScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Ron Wisley",
+                          "Dumbledore",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -74,13 +74,11 @@ class RonWisleyScreen extends StatelessWidget {
                         //fun facts. can also be moved out of the white box if you want? 
                         //but i think i looks cool inside the box.
                         Text(
-                          "Their favourite snack to eat during movies is "
-                          "caramel-dipped pretzels\n\n"
-                          "They always brag about their perfectly organized "
-                          "bookshelves\n\n"
-                          "Their favourite place to relax is a hammock\n\n"
-                          "They never leave the house without their blue lucky keychain\n\n"
-                          "They have an oddly strong fear of balloons popping nearby",
+                          "Their favourite street food is chicken gyros\n\n"
+                          "Their favourite body of water is oceans\n\n"
+                          "They like to brag about their hair\n\n"
+                          "They secretly collect mini snow globes from every city they visit\n\n"
+                          "Their favourite midnight snack is grape-flavored popcorn",
                           style: TextStyle(
                             fontSize: 14,
                             color: black,
@@ -149,4 +147,3 @@ class RonWisleyScreen extends StatelessWidget {
     );
   }
 }
-

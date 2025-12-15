@@ -51,7 +51,7 @@ class RonWisleyScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 28,
                     backgroundImage:
-                        AssetImage("assets/Avatars/ron_wisley.png"),
+                        AssetImage("assets/Avatars/harry_potter.png"),
                   ),
 
                   const SizedBox(width: 12),
@@ -62,7 +62,7 @@ class RonWisleyScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Ron Wisley",
+                          "Harry Potter",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -74,13 +74,11 @@ class RonWisleyScreen extends StatelessWidget {
                         //fun facts. can also be moved out of the white box if you want? 
                         //but i think i looks cool inside the box.
                         Text(
-                          "Their favourite snack to eat during movies is "
-                          "caramel-dipped pretzels\n\n"
-                          "They always brag about their perfectly organized "
-                          "bookshelves\n\n"
-                          "Their favourite place to relax is a hammock\n\n"
-                          "They never leave the house without their blue lucky keychain\n\n"
-                          "They have an oddly strong fear of balloons popping nearby",
+                          "The hobby they`re most obsessed with isbuilding tiny model ships\n\n"
+                          "Their favourite smell in the world is freshly baked sourdough bread\n\n"                         
+                          "They belive every outfit looks better with a quirky hat\n\n"
+                          "They once spent way too much money on a board game\n\n"
+                          "They always talk about their dream of visiting the glowing caves of New Zealand\n\n",
                           style: TextStyle(
                             fontSize: 14,
                             color: black,
@@ -149,4 +147,3 @@ class RonWisleyScreen extends StatelessWidget {
     );
   }
 }
-
