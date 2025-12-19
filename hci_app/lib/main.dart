@@ -5,6 +5,9 @@ import 'screens/host_a_party.dart';
 import 'screens/first_Screen.dart';
 import 'screens/host_a_party_finish.dart';
 import 'screens/choose_avatar_buttons.dart';
+import 'screens/leaderboard.dart';
+import 'screens/waiting_for_people_to_join.dart';
+import 'screens/your_secret_targets.dart';
 //needs to import the new screens here
 
 void main() {
@@ -39,7 +42,7 @@ class MyApp extends StatelessWidget {
       ),
       //home: const MyHomePage(title: 'Flutter Demo Home Page')
       home: //const HostPartyScreen(),
-      const ChooseAvatar(),
+      const YourSecretTargets(),
       //change const CluePartyScreen() to the screen you want to check
     );
   }
