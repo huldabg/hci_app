@@ -15,7 +15,7 @@ class HostPartyStatusScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 32),
 
-            // Overskrift øverst
+            // Toppic
             Text(
               "Host a Party",
               style: TextStyle(
@@ -48,7 +48,7 @@ class HostPartyStatusScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
 
-            // Antall deltagere
+            // Number of participants
             Text(
               "X participants have joined the game",
               style: TextStyle(
@@ -57,9 +57,9 @@ class HostPartyStatusScreen extends StatelessWidget {
                 color: white,
               ),
             ),
-            const Spacer(), // Skyver knappen helt ned til bunnen
+            const Spacer(), 
 
-            // Stor "Let's Begin!" knapp
+            //Let's Begin button
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -72,7 +72,7 @@ class HostPartyStatusScreen extends StatelessWidget {
                   backgroundColor: lightPurple,
                   foregroundColor: black,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 80, vertical: 24), // stor knapp
+                      horizontal: 80, vertical: 24), //big button
                   textStyle: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,

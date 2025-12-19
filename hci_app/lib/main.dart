@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'screens/Ron-wisley.dart';
-import 'screens/host-a-party.dart';
-import 'screens/first-Screen.dart';
-import 'screens/host-a-party-finish.dart';
+import 'package:hci_app/screens/time_is_up.dart';
+import 'screens/Ron_wisley.dart';
+import 'screens/host_a_party.dart';
+import 'screens/first_Screen.dart';
+import 'screens/host_a_party_finish.dart';
+import 'screens/choose_avatar_buttons.dart';
 //needs to import the new screens here
 
 void main() {
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
       ),
       //home: const MyHomePage(title: 'Flutter Demo Home Page')
       home: //const HostPartyScreen(),
-      const RonWisleyScreen(),
+      const ChooseAvatar(),
       //change const CluePartyScreen() to the screen you want to check
     );
   }
