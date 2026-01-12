@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hci_app/colors.dart';
+import 'package:hci_app/screens/host_a_party.dart';
+import 'package:hci_app/screens/select_avatar_fill_in.dart';
 
 class CluePartyScreen extends StatelessWidget {
   const CluePartyScreen({super.key});
@@ -84,7 +86,10 @@ class CluePartyScreen extends StatelessWidget {
               // Enter Button
               ElevatedButton(
   onPressed: () {
-    print("Enter pressed");
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SelectAvatarFillInScreen()),
+    );
   },
   style: ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
@@ -118,7 +123,10 @@ const SizedBox(height: 24),  //makes some space between the 2 buttons
               // Host a party instead Button
               ElevatedButton(
                 onPressed: () {
-                  print("Host a party pressed");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HostPartyScreen()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

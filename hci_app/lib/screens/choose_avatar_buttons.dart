@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hci_app/colors.dart';
 
-class ChooseAvatar extends StatelessWidget {
-  const ChooseAvatar({super.key});
+class ChooseAvatarButtonsScreen extends StatelessWidget {
+  const ChooseAvatarButtonsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +32,12 @@ class ChooseAvatar extends StatelessWidget {
                   mainAxisSpacing: 24,
                   crossAxisSpacing: 24,
                   children: [
-                    _avatarButton("assets/Avatars/lucius_malfoy.png"),
-                    _avatarButton("assets/Avatars/dumbledore.png"),
-                    _avatarButton("assets/Avatars/harry_potter.png"),
-                    _avatarButton("assets/Avatars/hermoine_granger.png"),
-                    _avatarButton("assets/Avatars/me.png"),
-                    _avatarButton("assets/Avatars/ron_wisley.png"),
+                    _avatarButton(context, "assets/Avatars/lucius_malfoy.png"),
+                    _avatarButton(context, "assets/Avatars/dumbledore.png"),
+                    _avatarButton(context, "assets/Avatars/harry_potter.png"),
+                    _avatarButton(context, "assets/Avatars/hermoine_granger.png"),
+                    _avatarButton(context, "assets/Avatars/me.png"),
+                    _avatarButton(context, "assets/Avatars/ron_wisley.png"),
                   ],
                 ),
               ),
@@ -48,10 +48,10 @@ class ChooseAvatar extends StatelessWidget {
     );
   }
 
-  Widget _avatarButton(String assetPath) {
+  Widget _avatarButton(BuildContext context, String assetPath) {
   return GestureDetector(
     onTap: () {
-      debugPrint("Avatar tapped: $assetPath"); //when button is pressed, the terminal tells you:)
+      Navigator.pop(context, assetPath);
     },
     child: Center(
       child: CircleAvatar(

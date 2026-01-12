@@ -1,52 +1,44 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hci_app/colors.dart';
+import 'package:hci_app/screens/leaderboard.dart';
 
+class TimeIsUpScreen extends StatefulWidget {
+  const TimeIsUpScreen({super.key});
 
+  @override
+  State<TimeIsUpScreen> createState() => _TimeIsUpScreenState();
+}
 
-class Time_Is_Up extends StatelessWidget {
-  const Time_Is_Up({super.key});
+class _TimeIsUpScreenState extends State<TimeIsUpScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // After a 3-second delay, navigate to the leaderboard.
+    Timer(const Duration(seconds: 3), () {
+      if (mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => Leaderboard()),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: lightPurple,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 24),
-
-Column(
-                children: [
-
-                  Text(
-                    "Time is up!",
-                    style: TextStyle(
-                        fontSize: 64,
-                        fontWeight: FontWeight.w400,
-                    )
-                ),
-
-                const SizedBox(height: 120),    //more space between text and image
-
-                            Text(
-                    "The winner is...",
-                    style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.w400,
-                    )
-                ),
-
-                const SizedBox(height: 24),  //more space between texst and image
-
-        Image.asset(
-                    "assets/icons/party_symbol.png",
-                    width: 200,
-                    height: 200,
-                    )
-                ],
-            )
-            ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: darkPurple,
+        body: Center(
+          child: Text(
+            "Time's Up!",
+            style: TextStyle(
+              color: white,
+              fontSize: 48,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );

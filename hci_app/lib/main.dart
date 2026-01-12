@@ -8,6 +8,11 @@ import 'screens/choose_avatar_buttons.dart';
 import 'screens/leaderboard.dart';
 import 'screens/waiting_for_people_to_join.dart';
 import 'screens/your_secret_targets.dart';
+import 'screens/dumbledore.dart';
+import 'screens/harry_potter.dart';
+import 'screens/hermoine_granger.dart';
+import 'screens/lucius_malfoy.dart';
+import 'screens/select_avatar_fill_in.dart';
 //needs to import the new screens here
 
 void main() {
@@ -42,7 +47,8 @@ class MyApp extends StatelessWidget {
       ),
       //home: const MyHomePage(title: 'Flutter Demo Home Page')
       home: //const HostPartyScreen(),
-      const YourSecretTargets(),
+      //const YourSecretTargets(),
+      const CluePartyScreen()
       //change const CluePartyScreen() to the screen you want to check
     );
   }
