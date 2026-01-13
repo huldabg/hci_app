@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hci_app/colors.dart';
 import 'package:hci_app/screens/Ron_wisley.dart';
@@ -37,12 +38,23 @@ class YourSecretTargets extends StatefulWidget {
 class _YourSecretTargetsState extends State<YourSecretTargets> {
   late int _remainingSeconds;
   Timer? _timer;
+  String _userCode = '';
+  // Map to store the scanned codes for each target.
+  final Map<String, String> _targetCodes = {};
 
   @override
   void initState() {
     super.initState();
     _remainingSeconds = widget.durationInSeconds;
+    _userCode = _generateRandomCode();
     startTimer();
+  }
+
+  String _generateRandomCode() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    final random = Random();
+    return String.fromCharCodes(Iterable.generate(
+        6, (_) => chars.codeUnitAt(random.nextInt(chars.length))));
   }
 
   void startTimer() {
@@ -77,11 +89,11 @@ class _YourSecretTargetsState extends State<YourSecretTargets> {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> allTargets = [
-      {"name": "Ron Wisley", "image": "assets/Avatars/ron_wisley.png"},
-      {"name": "Hermoine Granger", "image": "assets/Avatars/hermoine_granger.png"},
-      {"name": "Dumbledore", "image": "assets/Avatars/dumbledore.png"},
-      {"name": "Lucius Malfoy", "image": "assets/Avatars/lucius_malfoy.png"},
-      {"name": "Harry Potter", "image": "assets/Avatars/harry_potter.png"},
+      {"name": "Ron Wisley", "image": "assets/avatars/ron_wisley.png"},
+      {"name": "Hermoine Granger", "image": "assets/avatars/hermoine_granger.png"},
+      {"name": "Dumbledore", "image": "assets/avatars/dumbledore.png"},
+      {"name": "Lucius Malfoy", "image": "assets/avatars/lucius_malfoy.png"},
+      {"name": "Harry Potter", "image": "assets/avatars/harry_potter.png"},
     ];
 
     final selectedTargets = allTargets.take(widget.numberOfTargets).toList();
@@ -128,18 +140,25 @@ class _YourSecretTargetsState extends State<YourSecretTargets> {
                   child: ListView.builder(
                     itemCount: selectedTargets.length,
                     itemBuilder: (context, index) {
+                      final targetName = selectedTargets[index]["name"]!;
                       return TargetButton(
-                        name: selectedTargets[index]["name"]!,
+                        name: targetName,
                         imagePath: selectedTargets[index]["image"]!,
                         remainingSeconds: _remainingSeconds,
                         numberOfQuestions: widget.numberOfQuestions,
+                        initialCode: _targetCodes[targetName] ?? '',
+                        onCodeUpdated: (newCode) {
+                          setState(() {
+                            _targetCodes[targetName] = newCode;
+                          });
+                        },
                       );
                     },
                   ),
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  "you are: Name Nameson",
+                  "Your code is: $_userCode",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
@@ -172,6 +191,8 @@ class TargetButton extends StatelessWidget {
   final String imagePath;
   final int remainingSeconds;
   final int numberOfQuestions;
+  final String initialCode;
+  final Function(String) onCodeUpdated;
 
   const TargetButton({
     super.key,
@@ -179,6 +200,8 @@ class TargetButton extends StatelessWidget {
     required this.imagePath,
     required this.remainingSeconds,
     required this.numberOfQuestions,
+    required this.initialCode,
+    required this.onCodeUpdated,
   });
 
   @override
@@ -186,46 +209,57 @@ class TargetButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           Widget destination;
           switch (name) {
             case 'Ron Wisley':
               destination = RonWisleyScreen(
                 initialSeconds: remainingSeconds,
                 numberOfQuestions: numberOfQuestions,
+                initialCode: initialCode,
               );
               break;
             case 'Hermoine Granger':
               destination = HermoineGrangerScreen(
                 initialSeconds: remainingSeconds,
                 numberOfQuestions: numberOfQuestions,
+                initialCode: initialCode,
               );
               break;
             case 'Dumbledore':
               destination = DumbledoreScreen(
                 initialSeconds: remainingSeconds,
                 numberOfQuestions: numberOfQuestions,
+                initialCode: initialCode,
               );
               break;
             case 'Lucius Malfoy':
               destination = LuciusMalfoyScreen(
                 initialSeconds: remainingSeconds,
                 numberOfQuestions: numberOfQuestions,
+                initialCode: initialCode,
               );
               break;
             case 'Harry Potter':
               destination = HarryPotterScreen(
                 initialSeconds: remainingSeconds,
                 numberOfQuestions: numberOfQuestions,
+                initialCode: initialCode,
               );
               break;
             default:
-              return; 
+              return;
           }
-          Navigator.push(
+          // Wait for the result from the character screen.
+          final newCode = await Navigator.push<String>(
             context,
             MaterialPageRoute(builder: (context) => destination),
           );
+
+          // If a new code was returned, update the parent state.
+          if (newCode != null) {
+            onCodeUpdated(newCode);
+          }
         },
         borderRadius: BorderRadius.circular(15),
         child: Container(

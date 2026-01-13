@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hci_app/colors.dart';
 import 'package:hci_app/screens/time_is_up.dart';
-import 'camera.dart';
+import 'camera.dart'; // Assuming camera.dart provides QrScannerScreen
 
 // Custom Page Route for Fade-In Transition
 class FadeInRoute extends PageRouteBuilder {
@@ -18,10 +18,13 @@ class FadeInRoute extends PageRouteBuilder {
 class LuciusMalfoyScreen extends StatefulWidget {
   final int initialSeconds;
   final int numberOfQuestions;
+  final String initialCode;
+
   const LuciusMalfoyScreen({
     super.key,
     required this.initialSeconds,
     required this.numberOfQuestions,
+    required this.initialCode,
   });
 
   @override
@@ -31,7 +34,7 @@ class LuciusMalfoyScreen extends StatefulWidget {
 class _LuciusMalfoyScreenState extends State<LuciusMalfoyScreen> {
   late int _remainingSeconds;
   Timer? _timer;
-  final TextEditingController _codeController = TextEditingController();
+  late final TextEditingController _codeController;
 
   final String allFacts = "Their favourite weather is when it's cloudy but warm\n\n"
       "They're strangely competitive about who makes the best paper airplane\n\n"
@@ -43,7 +46,24 @@ class _LuciusMalfoyScreenState extends State<LuciusMalfoyScreen> {
   void initState() {
     super.initState();
     _remainingSeconds = widget.initialSeconds;
+    // Initialize the controller with the code passed from the parent screen.
+    _codeController = TextEditingController(text: widget.initialCode);
     startTimer();
+  }
+
+  void _scanAndPasteCode() async {
+    // Navigate to the scanner and wait for a result.
+    final scanResult = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(builder: (context) => const QrScannerScreen()),
+    );
+
+    // If a code was successfully scanned, update the text field.
+    if (mounted && scanResult != null) {
+      setState(() {
+        _codeController.text = scanResult;
+      });
+    }
   }
 
   void startTimer() {
@@ -88,7 +108,8 @@ class _LuciusMalfoyScreenState extends State<LuciusMalfoyScreen> {
       backgroundColor: darkPurple,
       body: GestureDetector(
         onTap: () {
-          Navigator.pop(context);
+          // When tapping to go back, send the current text field value back.
+          Navigator.pop(context, _codeController.text);
         },
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -177,34 +198,21 @@ class _LuciusMalfoyScreenState extends State<LuciusMalfoyScreen> {
                 ),
               ),
               const Spacer(),
-               ElevatedButton(
-              onPressed: () async {
-                // Navigating to the Scanner and waiting for the result
-                final String? result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const QrScannerScreen()),
-                );
-
-                // If we got a result, put it in the text field
-                if (result != null && mounted) {
-                  setState(() {
-                    _codeController.text = result;
-                  });
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: lightPurple,
-                foregroundColor: black,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
+              ElevatedButton(
+                onPressed: _scanAndPasteCode,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: lightPurple,
+                  foregroundColor: black,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                  padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
+                ),
+                child: const Text("Scan QR-code"),
               ),
-              child: const Text("Scan QR-code"),
-            ),
-            const SizedBox(height: 24),
-          ],
+              const SizedBox(height: 24),
+            ],
+          ),
         ),
       ),
-    )
-  );
+    );
   }
 }
