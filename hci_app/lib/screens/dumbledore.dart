@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hci_app/colors.dart';
 import 'package:hci_app/screens/time_is_up.dart';
+import 'camera.dart'; 
 
 // Custom Page Route for Fade-In Transition
 class FadeInRoute extends PageRouteBuilder {
@@ -30,6 +31,8 @@ class DumbledoreScreen extends StatefulWidget {
 class _DumbledoreScreenState extends State<DumbledoreScreen> {
   late int _remainingSeconds;
   Timer? _timer;
+
+  final TextEditingController _codeController = TextEditingController();
 
   final String allFacts = "Their favourite street food is chicken gyros\n\n"
       "Their favourite body of water is oceans\n\n"
@@ -64,6 +67,7 @@ class _DumbledoreScreenState extends State<DumbledoreScreen> {
   @override
   void dispose() {
     _timer?.cancel();
+    _codeController.dispose(); 
     super.dispose();
   }
 
@@ -163,6 +167,7 @@ class _DumbledoreScreenState extends State<DumbledoreScreen> {
               ),
               const SizedBox(height: 8),
               TextField(
+                controller: _codeController, 
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: white,
@@ -174,8 +179,19 @@ class _DumbledoreScreenState extends State<DumbledoreScreen> {
               ),
               const Spacer(),
               ElevatedButton(
-                onPressed: () {
-                  print("Scan QR-code pressed");
+                onPressed: () async {
+                 
+                  final String? result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const QrScannerScreen()),
+                  );
+
+                
+                  if (result != null && mounted) {
+                    setState(() {
+                      _codeController.text = result;
+                    });
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: lightPurple,
@@ -187,7 +203,7 @@ class _DumbledoreScreenState extends State<DumbledoreScreen> {
                     horizontal: 80,
                     vertical: 20,
                   ),
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),

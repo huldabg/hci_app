@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hci_app/colors.dart';
 import 'package:hci_app/screens/time_is_up.dart';
+import 'camera.dart'; 
 
 // Custom Page Route for Fade-In Transition
 class FadeInRoute extends PageRouteBuilder {
@@ -30,6 +31,9 @@ class HermoineGrangerScreen extends StatefulWidget {
 class _HermoineGrangerScreenState extends State<HermoineGrangerScreen> {
   late int _remainingSeconds;
   Timer? _timer;
+  
+  
+  final TextEditingController _codeController = TextEditingController();
 
   final String allFacts = "Their favourite sportsperson is Roger Federer\n\n"
       "The animal they are most afraid of is snakes\n\n"
@@ -64,6 +68,7 @@ class _HermoineGrangerScreenState extends State<HermoineGrangerScreen> {
   @override
   void dispose() {
     _timer?.cancel();
+    _codeController.dispose(); 
     super.dispose();
   }
 
@@ -162,6 +167,7 @@ class _HermoineGrangerScreenState extends State<HermoineGrangerScreen> {
               ),
               const SizedBox(height: 8),
               TextField(
+                controller: _codeController, 
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: white,
@@ -173,8 +179,19 @@ class _HermoineGrangerScreenState extends State<HermoineGrangerScreen> {
               ),
               const Spacer(),
               ElevatedButton(
-                onPressed: () {
-                  print("Scan QR-code pressed");
+                onPressed: () async {
+                  
+                  final String? result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const QrScannerScreen()),
+                  );
+
+                  
+                  if (result != null && mounted) {
+                    setState(() {
+                      _codeController.text = result;
+                    });
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: lightPurple,

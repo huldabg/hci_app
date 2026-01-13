@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hci_app/colors.dart';
 import 'package:hci_app/screens/time_is_up.dart';
+import 'camera.dart'; 
 
 // Custom Page Route for Fade-In Transition
 class FadeInRoute extends PageRouteBuilder {
@@ -31,8 +32,11 @@ class _HarryPotterScreenState extends State<HarryPotterScreen> {
   late int _remainingSeconds;
   Timer? _timer;
 
+  
+  final TextEditingController _codeController = TextEditingController();
+
   final String allFacts = "The hobby they`re most obsessed with isbuilding tiny model ships\n\n"
-      "Their favourite smell in the world is freshly baked sourdough bread\n\n"                         
+      "Their favourite smell in the world is freshly baked sourdough bread\n\n"
       "They belive every outfit looks better with a quirky hat\n\n"
       "They once spent way too much money on a board game\n\n"
       "They always talk about their dream of visiting the glowing caves of New Zealand\n\n";
@@ -64,6 +68,7 @@ class _HarryPotterScreenState extends State<HarryPotterScreen> {
   @override
   void dispose() {
     _timer?.cancel();
+    _codeController.dispose(); 
     super.dispose();
   }
 
@@ -163,6 +168,7 @@ class _HarryPotterScreenState extends State<HarryPotterScreen> {
               ),
               const SizedBox(height: 8),
               TextField(
+                controller: _codeController, 
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: white,
@@ -174,8 +180,19 @@ class _HarryPotterScreenState extends State<HarryPotterScreen> {
               ),
               const Spacer(),
               ElevatedButton(
-                onPressed: () {
-                  print("Scan QR-code pressed");
+                onPressed: () async {
+                  
+                  final String? result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const QrScannerScreen()),
+                  );
+
+                  
+                  if (result != null && mounted) {
+                    setState(() {
+                      _codeController.text = result;
+                    });
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: lightPurple,

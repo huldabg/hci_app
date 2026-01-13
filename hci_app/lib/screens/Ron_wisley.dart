@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hci_app/colors.dart';
 import 'package:hci_app/screens/time_is_up.dart';
+import 'camera.dart';
 
-// Custom Page Route for Fade-In Transition
+// --- MAIN SCREEN ---
 class FadeInRoute extends PageRouteBuilder {
   final Widget page;
   FadeInRoute({required this.page})
@@ -30,6 +31,9 @@ class RonWisleyScreen extends StatefulWidget {
 class _RonWisleyScreenState extends State<RonWisleyScreen> {
   late int _remainingSeconds;
   Timer? _timer;
+  
+  // Controller to automatically fill the TextField with the scanned code
+  final TextEditingController _codeController = TextEditingController();
 
   final String allFacts = "Their favourite snack to eat during movies is "
       "caramel-dipped pretzels\n\n"
@@ -66,6 +70,7 @@ class _RonWisleyScreenState extends State<RonWisleyScreen> {
   @override
   void dispose() {
     _timer?.cancel();
+    _codeController.dispose();
     super.dispose();
   }
 
@@ -85,120 +90,88 @@ class _RonWisleyScreenState extends State<RonWisleyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: darkPurple,
-      body: GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset("assets/icons/hour_glass.png", width: 32, height: 32),
+                const SizedBox(width: 8),
+                Text(
+                  _formatTime(_remainingSeconds),
+                  style: TextStyle(color: white, fontSize: 24),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    "assets/icons/hour_glass.png",
-                    width: 32,
-                    height: 32,
+                  const CircleAvatar(
+                    radius: 28,
+                    backgroundImage: AssetImage("assets/Avatars/ron_wisley.png"),
                   ),
-                  const SizedBox(width: 8),
-                  Text(
-                    _formatTime(_remainingSeconds),
-                    style: TextStyle(
-                      color: white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w400,
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Ron Wisley", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: black)),
+                        const SizedBox(height: 8),
+                        Text(_getFacts(allFacts, widget.numberOfQuestions), style: TextStyle(fontSize: 14, color: black)),
+                      ],
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CircleAvatar(
-                      radius: 28,
-                      backgroundImage:
-                          AssetImage("assets/Avatars/ron_wisley.png"),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Ron Wisley",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: black,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            _getFacts(allFacts, widget.numberOfQuestions),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+            ),
+            const SizedBox(height: 24),
+            Text("Have you found your secret target?", style: TextStyle(fontSize: 12, color: white)),
+            const SizedBox(height: 8),
+            TextField(
+              controller: _codeController, // Attached controller
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: white,
+                hintText: "Enter code here",
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              const SizedBox(height: 24),
-              Text(
-                "Have you found your secret target?",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: white,
-                ),
+            ),
+            const Spacer(),
+            ElevatedButton(
+              onPressed: () async {
+                // Navigating to the Scanner and waiting for the result
+                final String? result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const QrScannerScreen()),
+                );
+
+                // If we got a result, put it in the text field
+                if (result != null && mounted) {
+                  setState(() {
+                    _codeController.text = result;
+                  });
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: lightPurple,
+                foregroundColor: black,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
               ),
-              const SizedBox(height: 8),
-              TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: white,
-                  hintText: "Enter code here",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-              const Spacer(),
-              ElevatedButton(
-                onPressed: () {
-                  print("Scan QR-code pressed");
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: lightPurple,
-                  foregroundColor: black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 80,
-                    vertical: 20,
-                  ),
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                child: const Text("Scan QR-code"),
-              ),
-              const SizedBox(height: 24),
-            ],
-          ),
+              child: const Text("Scan QR-code"),
+            ),
+            const SizedBox(height: 24),
+          ],
         ),
       ),
     );

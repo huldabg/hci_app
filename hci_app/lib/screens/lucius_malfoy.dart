@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hci_app/colors.dart';
 import 'package:hci_app/screens/time_is_up.dart';
+import 'camera.dart';
 
 // Custom Page Route for Fade-In Transition
 class FadeInRoute extends PageRouteBuilder {
@@ -30,6 +31,7 @@ class LuciusMalfoyScreen extends StatefulWidget {
 class _LuciusMalfoyScreenState extends State<LuciusMalfoyScreen> {
   late int _remainingSeconds;
   Timer? _timer;
+  final TextEditingController _codeController = TextEditingController();
 
   final String allFacts = "Their favourite weather is when it's cloudy but warm\n\n"
       "They're strangely competitive about who makes the best paper airplane\n\n"
@@ -64,6 +66,7 @@ class _LuciusMalfoyScreenState extends State<LuciusMalfoyScreen> {
   @override
   void dispose() {
     _timer?.cancel();
+    _codeController.dispose();
     super.dispose();
   }
 
@@ -163,6 +166,7 @@ class _LuciusMalfoyScreenState extends State<LuciusMalfoyScreen> {
               ),
               const SizedBox(height: 8),
               TextField(
+                controller: _codeController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: white,
@@ -173,32 +177,34 @@ class _LuciusMalfoyScreenState extends State<LuciusMalfoyScreen> {
                 ),
               ),
               const Spacer(),
-              ElevatedButton(
-                onPressed: () {
-                  print("Scan QR-code pressed");
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: lightPurple,
-                  foregroundColor: black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 80,
-                    vertical: 20,
-                  ),
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                child: const Text("Scan QR-code"),
+               ElevatedButton(
+              onPressed: () async {
+                // Navigating to the Scanner and waiting for the result
+                final String? result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const QrScannerScreen()),
+                );
+
+                // If we got a result, put it in the text field
+                if (result != null && mounted) {
+                  setState(() {
+                    _codeController.text = result;
+                  });
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: lightPurple,
+                foregroundColor: black,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
               ),
-              const SizedBox(height: 24),
-            ],
-          ),
+              child: const Text("Scan QR-code"),
+            ),
+            const SizedBox(height: 24),
+          ],
         ),
       ),
-    );
+    )
+  );
   }
 }
