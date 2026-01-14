@@ -23,6 +23,10 @@ requires additional special steps, e.g. database installation, firewall configur
 library installation, API installation, etc. a non-specialist user will not be able to
 install it.
 
+How to install the application:
+
+How to use the application: If you are hosting the game, click the 'Host a party' button. Then, you can fill in the desired duration of the game and other settings. All players, including the host, must enter the same party code to join the same game. Everyone then answers a few fun fact questions about themselves before the host clicks 'Let's begin!' to start the game. Once started, you will receive a certain amount of 'secret targets' to find. These targets are other players in the same game. The goal is to walk around, talk to people, and try to identify your secret targets before the time runs out. The app serves as a great icebreaker to help you mingle and get to know new people! The player who finds all their secret targets the fastest, using the fewest attempts, wins the game and tops the leaderboard displayed once the game is over.
+
 
 
 c) Please indicate the Android SDK version and/or image (e.g. with or without
