@@ -45,8 +45,7 @@ Repository:
 APK:
 
 
-d) (Optional) Tell us if and where does the application differ from the prototype of
-the second phase?
+d) We made some small changes from the Figma prototype to the final application. We added buttons in the top left corner on many of the screens, so that the player has the ability to return to the previous screen. The textboxes where you fill in, for example, name and interests, have more rounded edges, which gives a softer layout. The transitions between the screens are also different from the Figma prototype. In Figma, the transition were more like turning the page in a book, compared to the finished application where the new screen comes from the middle instead of the side of the old screen. In Figma, the fun facts about your secret target were written on the purple background, but in the finished application, the fun facts are written in the same white textbox as the name and profile picture of your secret target to make is easier to read.
 
 e) (Optional) A short (up to 3 minutes) video (screen recording with audio)
 presenting the application and its features.
