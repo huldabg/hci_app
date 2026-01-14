@@ -89,11 +89,11 @@ class _YourSecretTargetsState extends State<YourSecretTargets> {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> allTargets = [
-      {"name": "Ron Wisley", "image": "assets/avatars/ron_wisley.png"},
-      {"name": "Hermoine Granger", "image": "assets/avatars/hermoine_granger.png"},
-      {"name": "Dumbledore", "image": "assets/avatars/dumbledore.png"},
-      {"name": "Lucius Malfoy", "image": "assets/avatars/lucius_malfoy.png"},
-      {"name": "Harry Potter", "image": "assets/avatars/harry_potter.png"},
+      {"name": "Ron Wisley", "image": "assets/Avatars/ron_wisley.png"},
+      {"name": "Hermoine Granger", "image": "assets/Avatars/hermoine_granger.png"},
+      {"name": "Dumbledore", "image": "assets/Avatars/dumbledore.png"},
+      {"name": "Lucius Malfoy", "image": "assets/Avatars/lucius_malfoy.png"},
+      {"name": "Harry Potter", "image": "assets/Avatars/harry_potter.png"},
     ];
 
     final selectedTargets = allTargets.take(widget.numberOfTargets).toList();
