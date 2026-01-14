@@ -25,6 +25,16 @@ class HostPartyStatusScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 32),
+              TextButton.icon(
+                onPressed: () => Navigator.pop(context),
+                icon: Icon(Icons.arrow_back_ios, color: white, size: 16),
+                label: Text(
+                  "Go back",
+                  style: TextStyle(color: white, fontSize: 16),
+                ),
+                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+              ),
+              const SizedBox(height: 16),
               Text(
                 "Host a Party",
                 style: TextStyle(

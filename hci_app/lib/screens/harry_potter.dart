@@ -37,7 +37,7 @@ class _HarryPotterScreenState extends State<HarryPotterScreen> {
   late final TextEditingController _codeController;
 
   final String allFacts = "The hobby they`re most obsessed with isbuilding tiny model ships\n\n"
-      "Their favourite smell in the world is freshly baked sourdough bread\n\n"                         
+      "Their favourite smell in the world is freshly baked sourdough bread\n\n"                                 
       "They belive every outfit looks better with a quirky hat\n\n"
       "They once spent way too much money on a board game\n\n"
       "They always talk about their dream of visiting the glowing caves of New Zealand\n\n";
@@ -110,8 +110,19 @@ class _HarryPotterScreenState extends State<HarryPotterScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
+              TextButton.icon(
+                onPressed: () => Navigator.pop(context, _codeController.text),
+                icon: Icon(Icons.arrow_back_ios, color: white, size: 16),
+                label: Text(
+                  "Go back",
+                  style: TextStyle(color: white, fontSize: 16),
+                ),
+                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+              ),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -194,24 +205,26 @@ class _HarryPotterScreenState extends State<HarryPotterScreen> {
                 ),
               ),
               const Spacer(),
-              ElevatedButton(
-                onPressed: _scanAndPasteCode,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: lightPurple,
-                  foregroundColor: black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+              Center(
+                child: ElevatedButton(
+                  onPressed: _scanAndPasteCode,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: lightPurple,
+                    foregroundColor: black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 80,
+                      vertical: 20,
+                    ),
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 80,
-                    vertical: 20,
-                  ),
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  child: const Text("Scan QR-code"),
                 ),
-                child: const Text("Scan QR-code"),
               ),
               const SizedBox(height: 24),
             ],

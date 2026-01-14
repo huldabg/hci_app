@@ -39,95 +39,111 @@ class _SelectAvatarFillInScreenState extends State<SelectAvatarFillInScreen> {
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start, 
               children: [
-                const SizedBox(height: 50),
-                Text(
-                  "Choose your avatar!",
-                  style: TextStyle(color: white, fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 30),
-                GestureDetector(
-                  onTap: _selectAvatar,
-                  child: CircleAvatar(
-                    radius: 60,
-                    backgroundImage: AssetImage(_selectedAvatarPath),
-                    child: const Align(
-                      alignment: Alignment.bottomRight,
-                      child: Icon(Icons.edit, color: Colors.white, size: 30),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: white,
-                    hintText: "Whats your favourite movie genre?",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: white,
-                    hintText: "whats your favourite food?",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: white,
-                    hintText: "where is your dream destination?",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: white,
-                    hintText: "who is one person you admire?",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: white,
-                    hintText: "what is an unpopular opinion you have?",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 32),
-                ElevatedButton(
-                  onPressed: () {
-                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => waitingScreen(participants: 2)),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: lightPurple,
-                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                TextButton.icon(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(Icons.arrow_back_ios, color: white, size: 16),
+                  label: Text(
+                    "Go back",
+                    style: TextStyle(color: white, fontSize: 16),
                   ),
-                  child: Text("Continue", style: TextStyle(fontSize: 18, color: black)),
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 16),
+                Center( 
+                  child: Column(
+                    children: [
+                      Text(
+                        "Choose your avatar!",
+                        style: TextStyle(color: white, fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 30),
+                      GestureDetector(
+                        onTap: _selectAvatar,
+                        child: CircleAvatar(
+                          radius: 60,
+                          backgroundImage: AssetImage(_selectedAvatarPath),
+                          child: const Align(
+                            alignment: Alignment.bottomRight,
+                            child: Icon(Icons.edit, color: Colors.white, size: 30),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      TextField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: white,
+                          hintText: "Whats your favourite movie genre?",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: white,
+                          hintText: "whats your favourite food?",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: white,
+                          hintText: "where is your dream destination?",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: white,
+                          hintText: "who is one person you admire?",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: white,
+                          hintText: "what is an unpopular opinion you have?",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                      ElevatedButton(
+                        onPressed: () {
+                           Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => waitingScreen(participants: 2)),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: lightPurple,
+                          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                        ),
+                        child: Text("Continue", style: TextStyle(fontSize: 18, color: black)),
+                      ),
+                      const SizedBox(height: 40),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

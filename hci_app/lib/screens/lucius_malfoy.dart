@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hci_app/colors.dart';
 import 'package:hci_app/screens/time_is_up.dart';
-import 'camera.dart'; // Assuming camera.dart provides QrScannerScreen
+import 'camera.dart'; 
 
 // Custom Page Route for Fade-In Transition
 class FadeInRoute extends PageRouteBuilder {
@@ -46,19 +46,16 @@ class _LuciusMalfoyScreenState extends State<LuciusMalfoyScreen> {
   void initState() {
     super.initState();
     _remainingSeconds = widget.initialSeconds;
-    // Initialize the controller with the code passed from the parent screen.
     _codeController = TextEditingController(text: widget.initialCode);
     startTimer();
   }
 
   void _scanAndPasteCode() async {
-    // Navigate to the scanner and wait for a result.
     final scanResult = await Navigator.push<String>(
       context,
       MaterialPageRoute(builder: (context) => const QrScannerScreen()),
     );
 
-    // If a code was successfully scanned, update the text field.
     if (mounted && scanResult != null) {
       setState(() {
         _codeController.text = scanResult;
@@ -108,14 +105,24 @@ class _LuciusMalfoyScreenState extends State<LuciusMalfoyScreen> {
       backgroundColor: darkPurple,
       body: GestureDetector(
         onTap: () {
-          // When tapping to go back, send the current text field value back.
           Navigator.pop(context, _codeController.text);
         },
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, // Sørger for at knappen er til venstre
             children: [
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
+              TextButton.icon(
+                onPressed: () => Navigator.pop(context, _codeController.text),
+                icon: Icon(Icons.arrow_back_ios, color: white, size: 16),
+                label: Text(
+                  "Go back",
+                  style: TextStyle(color: white, fontSize: 16),
+                ),
+                style: TextButton.styleFrom(padding: EdgeInsets.zero),
+              ),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -198,15 +205,26 @@ class _LuciusMalfoyScreenState extends State<LuciusMalfoyScreen> {
                 ),
               ),
               const Spacer(),
-              ElevatedButton(
-                onPressed: _scanAndPasteCode,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: lightPurple,
-                  foregroundColor: black,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                  padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: _scanAndPasteCode,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: lightPurple,
+                    foregroundColor: black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 80,
+                      vertical: 20,
+                    ),
+                    textStyle: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  child: const Text("Scan QR-code"),
                 ),
-                child: const Text("Scan QR-code"),
               ),
               const SizedBox(height: 24),
             ],
