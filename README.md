@@ -9,6 +9,9 @@ The final delivery consists of
  release apk 
 Put both in a cloud repository. You will include the sharing links in the README  document 
 
+The Github Repository of our project: https://github.com/huldabg/hci_app
+Application Zip and APK on Google Drive: https://drive.google.com/drive/folders/1CMn75W3lY-iOXqKNpDPmZPkKzp5FcO2M?usp=sharing
+
 
 
 
