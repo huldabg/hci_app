@@ -54,3 +54,5 @@ d) We made some small changes from the Figma prototype to the final application.
 e) (Optional) A short (up to 3 minutes) video (screen recording with audio)
 presenting the application and its features.
 
+Video link: https://youtube.com/shorts/MEQ3aH_cNDU?feature=share
+
