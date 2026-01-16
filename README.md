@@ -9,22 +9,16 @@ The final delivery consists of
  release apk 
 Put both in a cloud repository. You will include the sharing links in the README  document 
 
-The Github Repository of our project: https://github.com/huldabg/hci_app
-Application Zip and APK on Google Drive: https://drive.google.com/drive/folders/1CMn75W3lY-iOXqKNpDPmZPkKzp5FcO2M?usp=sharing
 
+a) The links to Uur application files.
 
+-The Github Repository of our project: https://github.com/huldabg/hci_app
 
+-Application Zip and APK on Google Drive: https://drive.google.com/drive/folders/1CMn75W3lY-iOXqKNpDPmZPkKzp5FcO2M?usp=sharing
 
-what the readme file should consist of:
-a) The links to your application files.
+-Video link: https://youtube.com/shorts/MEQ3aH_cNDU?feature=share
 
-b) Brief instructions for installing and using the application. Make sure that a
-simple user who is not familiar with your application will be able to read these
-instructions to install and use the application. The installation of your application
-should be simple, so that a non-specialist can install/use it. If your application
-requires additional special steps, e.g. database installation, firewall configuration,
-library installation, API installation, etc. a non-specialist user will not be able to
-install it.
+b) Brief instructions for installing and using the application.
 
 How to install the application:
 
@@ -47,9 +41,6 @@ The application requires an Android emulator image with Google APIs. This is nec
 Hardware Requirements:
 The application requires Camera Access permission to scan QR codes during gameplay.
 
-LINKS:
-Repository: 
-APK:
 
 
 d) We made some small changes from the Figma prototype to the final application. We added buttons in the top left corner on many of the screens, so that the player has the ability to return to the previous screen. The textboxes where you fill in, for example, name and interests, have more rounded edges, which gives a softer layout. The transitions between the screens are also different from the Figma prototype. In Figma, the transition were more like turning the page in a book, compared to the finished application where the new screen comes from the middle instead of the side of the old screen. In Figma, the fun facts about your secret target were written on the purple background, but in the finished application, the fun facts are written in the same white textbox as the name and profile picture of your secret target to make is easier to read.
